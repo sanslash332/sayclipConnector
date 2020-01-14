@@ -13,7 +13,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     def __init__(self, *args, **kwargs):
         super().__init__( *args, **kwargs)
         self.data = ''
-        self.oldSpeak = speech.speakText
+        self.oldSpeak = speech.speak
         self.active = False
 
     def mySpeak(self, text, *args, **kwargs):
@@ -27,19 +27,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         self.active = not self.active
         if(self.active):
             self.oldSpeak('conectandose a sayclip')
-            speech.speakText = self.mySpeak
+            speech.speak = self.mySpeak
             tones.beep(800, 100)
             tones.beep(1500, 100)
         else:
             self.oldSpeak('desconectandose de sayclip')
-            speech.speakText = self.oldSpeak
+            speech.speak = self.oldSpeak
             tones.beep(800, 120)
             tones.beep(800, 120)
 
     def terminate(self):
         if(self.active):
-            speech.speakText = self.oldSpeak
+            speech.speak = self.oldSpeak
 
     __gestures = {
-        "kb:shift+f10":"toggleCommunication",
+        "kb:nvda+control+,":"toggleCommunication",
     }
